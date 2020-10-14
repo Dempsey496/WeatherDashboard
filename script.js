@@ -3,6 +3,7 @@ $(document).ready(function() {
 let date = moment().format("MMM " + "D " + "YYYY");
 let getPastSearch = localStorage.getItem("pastSearch");
 if(getPastSearch){
+
 renderWeather(getPastSearch);
 }
 
@@ -31,23 +32,29 @@ function renderWeather(city){
       }).then(function(res){
         console.log(res);
         // creating divs dynamically
+      let uvi = res.current.uvi
         let todayWeatherCard = $(`
           <div class="card">
           <h2>${cityName} (${date})</h2><img src="http://openweathermap.org/img/wn/${res.current.weather[0].icon}@4x.png"/>
           <p>Temperature: ${Math.round(res.current.temp)}&#176;F</p>
           <p>Humidity: ${res.current.humidity}%</p>
           <p>WindSpeed: ${res.current.wind_speed} MPH</p>
-          <p>UV: ${res.current.uvi}</p>
+          <p id="uviColor">UV: ${uvi}</p>
           </div>
           
-        `) 
+        // `) 
+        // if(uvi<10){
+        
+        // }
+       
         let fiveDay = res.daily.slice(0, 5);
        for(i=0;i<fiveDay.length;i++){
          console.log(fiveDay[i].humidity);
          let fiveDaydate = moment.unix(fiveDay[i].dt).format("MMM " + "D " + "YYYY");
          let fiveDayCard = $(`
          <div class="card">
-         <h2>(${fiveDaydate})</h2><img src="http://openweathermap.org/img/wn/${fiveDay[i].weather[0].icon}@2x.png"/>
+         <h2>${city} (${fiveDaydate})</h2>
+         <img src="http://openweathermap.org/img/wn/${fiveDay[i].weather[0].icon}@4x.png"/>
          <p>Temp: ${Math.round(fiveDay[i].temp.day)}</p>
          <p>Humidity: ${fiveDay[i].humidity}%</p>
         
@@ -68,7 +75,7 @@ $("#citySearch").on("click", function(event){
     localStorage.setItem("pastSearch", city);
     renderWeather(city);
     let cityList = $("<ul>");
-    let cityListItem = $("<li>");
+    let cityListItem = $("<button>");
     cityListItem.text(city);
     cityList.append(cityListItem);
     $("#previousSearches").append(cityList);
