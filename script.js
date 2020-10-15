@@ -55,11 +55,14 @@ function renderWeather(city){
          console.log(fiveDay[i].humidity);
          let fiveDaydate = moment.unix(fiveDay[i].dt).format("MMM " + "D " + "YYYY");
          let fiveDayCard = $(`
+        
          <div class="card">
          <h2>${city} (${fiveDaydate})</h2>
          <img src="http://openweathermap.org/img/wn/${fiveDay[i].weather[0].icon}@4x.png"/>
          <p>Temp: ${Math.round(fiveDay[i].temp.day)}</p>
          <p>Humidity: ${fiveDay[i].humidity}%</p>
+         </div>
+
          `);
    
       $("#fiveDayDisplay").append(fiveDayCard);
