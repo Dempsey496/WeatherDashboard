@@ -16,7 +16,7 @@ AS A traveler
 I WANT to see the weather outlook for multiple cities
 SO THAT I can plan a trip accordingly
 ```
-![site image](Screenshot 2020-10-14 215933.png)
+![site image]<img src="Screenshot 2020-10-14 215933.png">
 
 ## Acceptance Criteria
 
